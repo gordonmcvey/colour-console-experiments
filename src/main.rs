@@ -28,54 +28,54 @@ fn main() {
     draw_dithered_ansi_magenta();
 
     println!("Gradient:");
-    for colour in gradient(RgbColour::new(255, 0, 0), RgbColour::new(0, 0, 255), 160) {
+    for colour in RgbColour::new(255, 0, 0).gradient(&RgbColour::new(0, 0, 255), 160) {
         let index = map_rgb_to_ansi(colour.red, colour.green, colour.blue);
         print!("{}", SYMBOL.ansi_color(index));
     }
     println!();
 
     println!("Spectrum:");
-    for colour in gradient(RgbColour::new(255, 0, 0), RgbColour::new(255, 127, 0), 8) {
+    for colour in RgbColour::new(255, 0, 0).gradient(&RgbColour::new(255, 127, 0), 8) {
         let index = map_rgb_to_ansi(colour.red, colour.green, colour.blue);
         print!("{}", SYMBOL.ansi_color(index));
     }
-    for colour in gradient(RgbColour::new(255, 143, 0), RgbColour::new(255, 255, 0), 8) {
+    for colour in RgbColour::new(255, 143, 0).gradient(&RgbColour::new(255, 255, 0) , 8) {
         let index = map_rgb_to_ansi(colour.red, colour.green, colour.blue);
         print!("{}", SYMBOL.ansi_color(index));
     }
-    for colour in gradient(RgbColour::new(239, 255, 0), RgbColour::new(127, 255, 0), 8) {
+    for colour in RgbColour::new(239, 255, 0).gradient(&RgbColour::new(127, 255, 0), 8) {
         let index = map_rgb_to_ansi(colour.red, colour.green, colour.blue);
         print!("{}", SYMBOL.ansi_color(index));
     }
-    for colour in gradient(RgbColour::new(111, 255, 0), RgbColour::new(0, 255, 0), 8) {
+    for colour in RgbColour::new(111, 255, 0).gradient(&RgbColour::new(0, 255, 0), 8) {
         let index = map_rgb_to_ansi(colour.red, colour.green, colour.blue);
         print!("{}", SYMBOL.ansi_color(index));
     }
-    for colour in gradient(RgbColour::new(0, 255, 16), RgbColour::new(0, 255, 127), 8) {
+    for colour in RgbColour::new(0, 255, 16).gradient(&RgbColour::new(0, 255, 127), 8) {
         let index = map_rgb_to_ansi(colour.red, colour.green, colour.blue);
         print!("{}", SYMBOL.ansi_color(index));
     }
-    for colour in gradient(RgbColour::new(0, 255, 143), RgbColour::new(0, 255, 255), 8) {
+    for colour in RgbColour::new(0, 255, 143).gradient(&RgbColour::new(0, 255, 255), 8) {
         let index = map_rgb_to_ansi(colour.red, colour.green, colour.blue);
         print!("{}", SYMBOL.ansi_color(index));
     }
-    for colour in gradient(RgbColour::new(0, 239, 255), RgbColour::new(0, 127, 255), 8) {
+    for colour in RgbColour::new(0, 239, 255).gradient(&RgbColour::new(0, 127, 255), 8) {
         let index = map_rgb_to_ansi(colour.red, colour.green, colour.blue);
         print!("{}", SYMBOL.ansi_color(index));
     }
-    for colour in gradient(RgbColour::new(0, 111, 255), RgbColour::new(0, 0, 255), 8) {
+    for colour in RgbColour::new(0, 111, 255).gradient(&RgbColour::new(0, 0, 255), 8) {
         let index = map_rgb_to_ansi(colour.red, colour.green, colour.blue);
         print!("{}", SYMBOL.ansi_color(index));
     }
-    for colour in gradient(RgbColour::new(16, 0, 255), RgbColour::new(127, 0, 255), 8) {
+    for colour in RgbColour::new(16, 0, 255).gradient(&RgbColour::new(127, 0, 255), 8) {
         let index = map_rgb_to_ansi(colour.red, colour.green, colour.blue);
         print!("{}", SYMBOL.ansi_color(index));
     }
-    for colour in gradient(RgbColour::new(143, 0, 255), RgbColour::new(255, 0, 255), 8) {
+    for colour in RgbColour::new(143, 0, 255).gradient(&RgbColour::new(255, 0, 255), 8) {
         let index = map_rgb_to_ansi(colour.red, colour.green, colour.blue);
         print!("{}", SYMBOL.ansi_color(index));
     }
-    for colour in gradient(RgbColour::new(255, 0, 239), RgbColour::new(255, 0, 0), 8) {
+    for colour in RgbColour::new(255, 0, 239).gradient(&RgbColour::new(255, 0, 0), 8) {
         let index = map_rgb_to_ansi(colour.red, colour.green, colour.blue);
         print!("{}", SYMBOL.ansi_color(index));
     }
@@ -274,41 +274,4 @@ fn find_indexes_magenta() -> Vec<u8> {
     }
 
     indexes
-}
-
-
-fn gradient(start: RgbColour, end: RgbColour, steps: u32) -> Vec<RgbColour> {
-    (0..=steps)
-        .map(|step| {
-            let ratio = step as f64 / steps as f64;
-            RgbColour::new(
-                RgbColour::lerp(start.red, end.red, ratio),
-                RgbColour::lerp(start.green, end.green, ratio),
-                RgbColour::lerp(start.blue, end.blue, ratio),
-            )
-        })
-        .collect()
-    // let mut colours: Vec<RgbColour> = Vec::new();
-    // let mut ratio: i32;
-    // let mut new_red: u8;
-    // let mut new_green: u8;
-    // let mut new_blue: u8;
-    //
-    // let start_red_i32 = start.red as i32;
-    // let start_green_i32 = start.green as i32;
-    // let start_blue_i32 = start.blue as i32;
-    // let end_red_i32 = end.red as i32;
-    // let end_green_i32 = end.green as i32;
-    // let end_blue_i32 = end.blue as i32;
-    //
-    // for step in 0..=steps {
-    //     ratio = ((step as f64 / steps as f64) * SCALING_FACTOR as f64) as i32;
-    //     new_red = (start_red_i32 + (ratio * (end_red_i32 - start_red_i32) / SCALING_FACTOR as i32)) as u8;
-    //     new_green = (start_green_i32 + (ratio * (end_green_i32 - start_green_i32) / SCALING_FACTOR as i32)) as u8;
-    //     new_blue = (start_blue_i32 + (ratio * (end_blue_i32 - start_blue_i32) / SCALING_FACTOR as i32)) as u8;
-    //
-    //     colours.push(RgbColour::new(new_red, new_green, new_blue));
-    // }
-    //
-    // colours
 }

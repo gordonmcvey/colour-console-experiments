@@ -17,8 +17,21 @@ impl RgbColour {
         ((self.red as u32) << 16) + ((self.green as u32) << 8) + (self.blue as u32)
     }
 
+    pub fn gradient(&self, end: &RgbColour, steps: u32) -> Vec<RgbColour> {
+        (0..=steps)
+            .map(|step| {
+                let ratio = step as f64 / steps as f64;
+                Self::new(
+                    Self::lerp(self.red, end.red, ratio),
+                    Self::lerp(self.green, end.green, ratio),
+                    Self::lerp(self.blue, end.blue, ratio),
+                )
+            })
+            .collect()
+    }
+
     // Linear interpolation between start and end values
-    pub fn lerp(start: u8, end: u8, ratio: f64) -> u8 {
+    fn lerp(start: u8, end: u8, ratio: f64) -> u8 {
         (start as f64 + ratio * (end as f64 - start as f64)).round() as u8
     }
 }
